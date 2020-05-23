@@ -50,7 +50,7 @@ class LegoSetsFragment : Fragment(), Injectable {
             savedInstanceState: Bundle?
     ): View? {
         viewModel = injectViewModel(viewModelFactory)
-        viewModel.connectivityAvailable = ConnectivityUtil.isConnected(context!!)
+        viewModel.connectivityAvailable = ConnectivityUtil.isConnected(requireContext())
         viewModel.themeId = if (args.themeId == -1) null else args.themeId
 
         binding = FragmentLegosetsBinding.inflate(inflater, container, false)

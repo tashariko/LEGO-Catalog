@@ -18,11 +18,16 @@ import kotlinx.coroutines.Dispatchers
 fun <T, A> resultLiveData(databaseQuery: () -> LiveData<T>,
                           networkCall: suspend () -> Result<A>,
                           saveCallResult: suspend (A) -> Unit): LiveData<Result<T>> =
+
+        //https://stackoverflow.com/questions/57698932/livedatascope-vs-viewmodelscope-in-android
         liveData(Dispatchers.IO) {
+            // emit(someValue) is similar to myData.value = someValue whereas
+            // emitSource(someLiveValue) is similar to myData = someLiveValue.
             emit(Result.loading<T>())
             val source = databaseQuery.invoke().map { Result.success(it) }
             emitSource(source)
 
+            //run it(remoteSource.fetchData()) here on running invoke method
             val responseStatus = networkCall.invoke()
             if (responseStatus.status == SUCCESS) {
                 saveCallResult(responseStatus.data!!)

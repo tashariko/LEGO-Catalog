@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.elifox.legocatalog.databinding.ListItemThemeBinding
@@ -15,7 +14,7 @@ import com.elifox.legocatalog.legotheme.data.LegoTheme
 /**
  * Adapter for the [RecyclerView] in [LegoThemeFragment].
  */
-class LegoThemeAdapter : ListAdapter<LegoTheme, LegoThemeAdapter.ViewHolder>(DiffCallback()) {
+class LegoThemeAdapter : ListAdapter<LegoTheme, LegoThemeAdapter.ViewHolder>(LegoTheme.DIFF_CALLBACK) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val legoTheme = getItem(position)
@@ -51,13 +50,14 @@ class LegoThemeAdapter : ListAdapter<LegoTheme, LegoThemeAdapter.ViewHolder>(Dif
     }
 }
 
-private class DiffCallback : DiffUtil.ItemCallback<LegoTheme>() {
-
-    override fun areItemsTheSame(oldItem: LegoTheme, newItem: LegoTheme): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: LegoTheme, newItem: LegoTheme): Boolean {
-        return oldItem == newItem
-    }
-}
+//
+//private class DiffCallback : DiffUtil.ItemCallback<LegoTheme>() {
+//
+//    override fun areItemsTheSame(oldItem: LegoTheme, newItem: LegoTheme): Boolean {
+//        return oldItem.id == newItem.id
+//    }
+//
+//    override fun areContentsTheSame(oldItem: LegoTheme, newItem: LegoTheme): Boolean {
+//        return oldItem == newItem
+//    }
+//}

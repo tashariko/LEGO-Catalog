@@ -44,7 +44,7 @@ class LegoSetFragment : Fragment(), Injectable {
         val binding = DataBindingUtil.inflate<FragmentLegoSetBinding>(
                 inflater, R.layout.fragment_lego_set, container, false).apply {
             lifecycleOwner = this@LegoSetFragment
-            fab.setOnClickListener { _ -> set.url?.let { intentOpenWebsite(activity!!,it) } }
+            fab.setOnClickListener { _ -> set.url?.let { intentOpenWebsite(requireActivity(),it) } }
         }
 
         subscribeUi(binding)
@@ -62,7 +62,7 @@ class LegoSetFragment : Fragment(), Injectable {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_share -> {
-                intentShareText(activity!!, getString(R.string.share_lego_set, set.name, set.url ?: ""))
+                intentShareText(requireActivity()!!, getString(R.string.share_lego_set, set.name, set.url ?: ""))
                 return true
             }
             else -> super.onOptionsItemSelected(item)
